@@ -20,12 +20,9 @@ const Form = ({ allPosts, setAllPosts }) => {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then((response) => {
-        response.json();
-        console.log(response);
-      })
+      .then((response) => response.json())
       .then((newPost) => {
-        // setAllPosts([newPost, ...allPosts]);
+        setAllPosts([newPost, ...allPosts]);
         console.log(newPost);
         console.log(allPosts);
       });

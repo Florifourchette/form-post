@@ -20,7 +20,7 @@ export default function App() {
     <div className="App">
       <Instructions />
       <div className="block">
-        <Form allposts={allPosts} setAllPosts={setAllPosts} />
+        <Form allPosts={allPosts} setAllPosts={setAllPosts} />
         {allPosts.map((post) => (
           <PostDisplay key={post.id} post={post} />
         ))}
