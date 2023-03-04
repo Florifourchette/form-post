@@ -7,14 +7,25 @@ import { useState, useEffect } from "react";
 export default function App() {
   const [allPosts, setAllPosts] = useState([]);
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((postResponse) => {
-        setAllPosts(postResponse);
-      })
-      .catch((e) => console.log(e));
+  const fetchPostJson = async () => {
+    const result = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const json = await result.json();
+    return json;
+  };
+
+  useEffect(async () => {
+    const data = await fetchPostJson();
+    setAllPosts(data);
   }, []);
+
+  // useEffect(() => {
+  //   fetch("https://jsonplaceholder.typicode.com/posts")
+  //     .then((response) => response.json())
+  //     .then((postResponse) => {
+  //       setAllPosts(postResponse);
+  //     })
+  //     .catch((e) => console.log(e));
+  // }, []);
 
   return (
     <div className="App">

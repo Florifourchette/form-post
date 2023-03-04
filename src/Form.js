@@ -1,32 +1,41 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Form = ({ allPosts, setAllPosts }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
   const handleSubmit = (e) => {
-    console.log("submit done");
-    console.log(title);
     e.preventDefault();
+    console.log(title);
 
-    fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "POST",
-      body: JSON.stringify({
-        title: title,
-        body: body,
-        userId: 1,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts")
       .then((newPost) => {
+        newPost.id = Math.random();
+        newPost.title = title;
+        newPost.body = body;
         setAllPosts([newPost, ...allPosts]);
         console.log(newPost);
-        console.log(allPosts);
-      });
+      })
+      .catch(() => console.log("error"));
   };
+  //   fetch("https://jsonplaceholder.typicode.com/posts", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       title: title,
+  //       body: body,
+  //       userId: 1,
+  //     }),
+  //     headers: {
+  //       "Content-type": "application/json; charset=UTF-8",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((newPost) => {
+  //       setAllPosts([newPost, ...allPosts]);
+  //     });
+  // };
 
   return (
     <>
@@ -41,7 +50,7 @@ const Form = ({ allPosts, setAllPosts }) => {
           value={body}
           onChange={(e) => setBody(e.target.value)}
         ></input>
-        <button>Submit</button>
+        <button>Submit Post</button>
       </form>
     </>
   );
